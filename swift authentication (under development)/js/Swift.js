@@ -59,6 +59,7 @@ var recursiveDeleteOnSwift;
 				xStorageUrl = e.target.getResponseHeader('X-Storage-Url');
 				SwiftV1.xStorageUrl = xStorageUrl;
 			        SwiftV1.xOpenUrl = xStorageUrl.replace("/v1/", "/open/");
+			        xOpenUrl = SwiftV1.xOpenUrl;
 				xAuthToken = e.target.getResponseHeader('X-Auth-Token');
 				SwiftV1.xAuthToken = xAuthToken;
 				args.ok();
@@ -648,12 +649,12 @@ var recursiveDeleteOnSwift;
 	}
 
 	ZeroVmOnSwift.open = function (args) {
-	    xhr = new XMLHttpRequest();
-		xhr.open('GET', xOpenUrl + "/" + args.path);
-		xhr.addEventListener('load', function(e){
-			executeHandleResponse(e, args);
-		});
-		xhr.send();
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('GET', xOpenUrl + "/" + args.path);
+	    xhr.addEventListener('load', function(e){
+		executeHandleResponse(e, args);
+	    });
+	    xhr.send();
 	};
 
 	ZeroVmOnSwift.execute = function (args) {
