@@ -79,7 +79,7 @@ var ContainersList = (function (SwiftV1) {
 
 		callback();
 
-		if (containers.length === FileManager.Containers.LIMIT) {
+		if (containers.length == LIMIT) {
 			FileManager.toolbox.createLoadMoreButton(transitionDiv);
 		} else {
 			transitionDiv.insertAdjacentHTML('beforeend', ContainersList.create([{name:''}]).replace('item', 'item no-hover no-active dummy'));
