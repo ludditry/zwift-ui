@@ -11,6 +11,7 @@ var recursiveDeleteOnSwift;
 
 	var xAuthToken = null;
 	var xStorageUrl = null;
+        var xOpenUrl = null;
 	var unauthorized = function () {};
 
 	var METADATA_PREFIX = {
@@ -57,6 +58,7 @@ var recursiveDeleteOnSwift;
 			if (e.target.status >= 200 && e.target.status <= 299) {
 				xStorageUrl = e.target.getResponseHeader('X-Storage-Url');
 				SwiftV1.xStorageUrl = xStorageUrl;
+			        SwiftV1.xOpenUrl = xStorageUrl.replace("/v1/", "/open/");
 				xAuthToken = e.target.getResponseHeader('X-Auth-Token');
 				SwiftV1.xAuthToken = xAuthToken;
 				args.ok();
@@ -646,9 +648,8 @@ var recursiveDeleteOnSwift;
 	}
 
 	ZeroVmOnSwift.open = function (args) {
-		var zwiftUrlPrefix = xStorageUrl.split('/').slice(0, -2).join('/'),
-			xhr = new XMLHttpRequest();
-		xhr.open('GET', zwiftUrlPrefix + '/open/' + args.path);
+	    xhr = new XMLHttpRequest();
+		xhr.open('GET', xOpenUrl + "/" + args.path);
 		xhr.addEventListener('load', function(e){
 			executeHandleResponse(e, args);
 		});
