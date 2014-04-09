@@ -649,12 +649,7 @@ var recursiveDeleteOnSwift;
 	}
 
 	ZeroVmOnSwift.open = function (args) {
-	    var xhr = new XMLHttpRequest();
-	    xhr.open('GET', xOpenUrl + "/" + args.path);
-	    xhr.addEventListener('load', function(e){
-		executeHandleResponse(e, args);
-	    });
-	    xhr.send();
+	    window.location.href = xOpenUrl + "/" + args.path;
 	};
 
 	ZeroVmOnSwift.execute = function (args) {
