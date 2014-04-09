@@ -1,7 +1,7 @@
 var ContainersList = (function (SwiftV1) {
 	'use strict';
 
-	var LIMIT = 20;
+	var LIMIT = 2000;
 
 	var load = function (callback) {
 		SwiftV1.listContainers({

@@ -1,7 +1,7 @@
 var FilesList = (function (SwiftV1, Path, CurrentPath, ContainersList) {
 	'use strict';
 
-	var LIMIT = 20;
+	var LIMIT = 2000;
 
 	var load = function (callback) {
 		var requestArgs = {};
