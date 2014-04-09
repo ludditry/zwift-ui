@@ -538,7 +538,10 @@
 				onItemClick(previousParent);
 			},
 			ondownload: function(e){
-				window.FileManager.toolbox.downloadClick(SwiftV1.xStorageUrl + CurrentPath().get() + previousParent.dataset.path, previousParent.dataset.path);
+				window.FileManager.toolbox.downloadClick(
+				    SwiftV1.xStorageUrl + "/" +
+					CurrentPath().container() + "/" +  previousParent.dataset.path,
+				    previousParent.dataset.path);
 			},
 			oncopy: function(){
 				oncopy();

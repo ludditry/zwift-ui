@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			});
 			fileMenuButtonsWrapper.getElementsByClassName(buttonsClasses.download)[0].addEventListener("click", function(){
 				var current = CurrentPath();
-				//window.FileManager.toolbox.downloadClick(Auth.getStorageUrl() + current.get(), current.name());
+//				window.FileManager.toolbox.downloadClick(SwiftV1.xStorageUrl + current.container(), current.name());
 				window.FileManager.toolbox.downloadClick(
 					URL.createObjectURL(new Blob([window.FileManager.fileEditor.getValue()], {type: "text/plain"})),
 					current.name());
