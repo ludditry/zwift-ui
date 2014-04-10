@@ -26,6 +26,25 @@ var recursiveDeleteOnSwift;
 		OBJECT: 'X-Remove-Object-Meta-'
 	};
 
+    function get_cookie(name) {
+	var kvs = document.cookie.split(";");
+	name += "=";
+	for(var i=0; i< kvs.length; i++) {
+	    var kv = kvs[i].trim();
+	    if (kv.indexOf(name) == 0) {
+		return kv.substring(name.length, kv.length)
+	    }
+	}
+	return null;
+    }
+
+    SwiftV1.loadValuesFromCookie = function() {
+	xStorageUrl=decodeURIComponent(get_cookie("storage"));
+	xOpenUrl = xStorageUrl.replace("/v1/", "/open/");
+	SwiftV1.xStorageUrl = xStorageUrl;
+	SwiftV1.xOpenUrl = xOpenUrl;
+	SwiftV1.account = get_cookie("account")
+    }
 	function headersToMetadata(headers, prefix) {
 		var metadata = {};
 		for (var header in headers) {
@@ -53,6 +72,7 @@ var recursiveDeleteOnSwift;
 		xhr.open('GET', args.v1AuthUrl);
 		xhr.setRequestHeader('X-Auth-User', args.tenant + ':' + args.xAuthUser);
 		SwiftV1.account = args.xAuthUser;
+	        document.cookie = "account=" + SwiftV1.account;
 		xhr.setRequestHeader('X-Auth-Key', args.xAuthKey);
 		xhr.addEventListener('load', function (e) {
 			if (e.target.status >= 200 && e.target.status <= 299) {

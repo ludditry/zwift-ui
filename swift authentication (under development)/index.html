@@ -333,6 +333,34 @@
 <script src="js/fileExecutor.js"></script>
 
 <script>
+function show_app() {
+    toolbox();
+    document.getElementById('v1AuthForm').setAttribute('hidden', 'hidden');
+    document.getElementById('AccountId').textContent = SwiftV1.account;
+    document.getElementById('SignOut').onclick = function () {
+	window.location.reload(true);
+	//document.getElementById('v1AuthForm').removeAttribute('hidden');
+    };
+    initPage();
+    document.addEventListener('click', function (e) {
+	var el;
+	if (document.body.classList.contains('disabled')) {
+	    return;
+	}
+	if (el = FileManager.toolbox.getParentByClassName(e.target,'toggle-item-menu-btn')) {
+	    FileManager.item.toggleMenu(el);
+	} else if (el = FileManager.toolbox.getParentByClassName(e.target,'item')) {
+	    FileManager.item.click(el);
+	} else if (window.FileManager.toolbox.getParentByClassName(e.target, 'load-more-button')) {
+	    FilesList.loadMore();
+	}
+    });
+    //setRootClass();
+}
+
+SwiftV1.loadValuesFromCookie();
+SwiftV1.Account.head({"success": show_app, "error": function () {}});
+
 	document.getElementById('v1AuthForm').onsubmit = function (e) {
 		e.preventDefault();
 		var v1AuthUrl = document.getElementById('v1-auth-url').value;
@@ -347,39 +375,7 @@
 			error: function () {
 				alert(arguments[0] + ' ' + arguments[1]);
 			},
-			ok: function () {
-
-				toolbox();
-
-				document.getElementById('v1AuthForm').setAttribute('hidden', 'hidden');
-
-				document.getElementById('AccountId').textContent = SwiftV1.account;
-
-				document.getElementById('SignOut').onclick = function () {
-					window.location.reload(true);
-					//document.getElementById('v1AuthForm').removeAttribute('hidden');
-				};
-
-				initPage();
-
-
-				document.addEventListener('click', function (e) {
-					var el;
-
-					if (document.body.classList.contains('disabled')) {
-						return;
-					}
-
-					if (el = FileManager.toolbox.getParentByClassName(e.target,'toggle-item-menu-btn')) {
-						FileManager.item.toggleMenu(el);
-					} else if (el = FileManager.toolbox.getParentByClassName(e.target,'item')) {
-						FileManager.item.click(el);
-					} else if (window.FileManager.toolbox.getParentByClassName(e.target, 'load-more-button')) {
-						FilesList.loadMore();
-					}
-				});
-				//setRootClass();
-			}
+			ok: show_app
 		});
 	};
 
