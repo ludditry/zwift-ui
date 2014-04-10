@@ -63,9 +63,9 @@
 			},
 			executionPropertyName = {
 				"retcode": "retcode",
-				"etag": "etag",
+//				"etag": "etag",
 				"status": "status",
-				"system": "system",
+//				"system": "system",
 				"cdr-total": "cdr-total",
 				"validation": "validation"
 			},
@@ -122,14 +122,16 @@
 			var wrapper = document.createElement("table");
 			wrapper.className = "execution-report";
 			Object.keys(report.execution).forEach(function(propName){
+			    if (executionPropertyName.hasOwnProperty(propName)) {
 				var th = document.createElement("th"),
-					td = document.createElement("td"),
-					tr = document.createElement("tr");
+				td = document.createElement("td"),
+				tr = document.createElement("tr");
 				th.textContent = executionPropertyName[propName];
 				tr.appendChild(th);
 				td.textContent = report.execution[propName];
 				tr.appendChild(td);
 				wrapper.appendChild(tr);
+			    }
 			});
 			return wrapper;
 		}
