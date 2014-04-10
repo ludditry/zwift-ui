@@ -178,7 +178,9 @@
 
 		function createResultReport(report){
 			var wrapper = document.createElement("div");
-			wrapper.textContent = report ? report : "There is no output data.";
+                        var pre = document.createElement("pre");
+                        pre.textContent = report? report: "There is no output data.";
+                        wrapper.appendChild(pre);
 			wrapper.className = "result-report";
 			return wrapper;
 		}
